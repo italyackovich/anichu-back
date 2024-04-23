@@ -2,6 +2,8 @@ package ru.back.anichu.models;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "users")
 public class User {
@@ -14,6 +16,9 @@ public class User {
     private String email;
     private String password;
 
+    @OneToMany(mappedBy = "user_id", cascade = CascadeType.ALL)
+    private List<Comment> comments;
+
     public User() {}
 
     public User(String name, String username, String password, String email) {
@@ -21,6 +26,14 @@ public class User {
         this.username = username;
         this.password = password;
         this.email = email;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 
     public String getEmail() {
