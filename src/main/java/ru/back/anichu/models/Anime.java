@@ -18,8 +18,13 @@ public class Anime {
 
     private String status;
     private String link;
-
+    private Double rating;
+    private String date;
+    private String ageRating;
     private String img;
+
+    @OneToMany(mappedBy = "anime_id", cascade = CascadeType.ALL)
+    private List<Genre> genres;
 
     @OneToMany(mappedBy = "anime_id", cascade = CascadeType.ALL)
     private List<Episode> episodes;
@@ -35,6 +40,38 @@ public class Anime {
         this.description = description;
         this.status = status;
         this.link = link;
+    }
+
+    public Double getRating() {
+        return rating;
+    }
+
+    public void setRating(Double rating) {
+        this.rating = rating;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getAgeRating() {
+        return ageRating;
+    }
+
+    public void setAgeRating(String ageRating) {
+        this.ageRating = ageRating;
+    }
+
+    public List<Genre> getGenres() {
+        return genres;
+    }
+
+    public void setGenres(List<Genre> genres) {
+        this.genres = genres;
     }
 
     public List<Comment> getComments() {

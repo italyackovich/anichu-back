@@ -37,8 +37,10 @@ public class AnimeController {
                 .map(anime -> {
                     anime.setName(newAnime.getName());
                     anime.setDescription(newAnime.getDescription());
-                    anime.setEpisodes(newAnime.getEpisodes());
                     anime.setStatus(newAnime.getStatus());
+                    anime.setAgeRating(newAnime.getAgeRating());
+                    anime.setRating(newAnime.getRating());
+                    anime.setDate(newAnime.getDate());
                     anime.setImg(newAnime.getImg());
                     anime.setLink(newAnime.getLink());
                     return aniRepository.save(anime);

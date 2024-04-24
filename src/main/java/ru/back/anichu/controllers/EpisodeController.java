@@ -13,6 +13,7 @@ public class EpisodeController {
     @Autowired
     private EpisodeRepository episodeRepository;
 
+
     @GetMapping("/anime/{id}/episodes")
     public List<Episode> getEpisodesByAnimeId() {
         return episodeRepository.findAll();
