@@ -19,9 +19,13 @@ public class User {
     @OneToMany(mappedBy = "user_id", cascade = CascadeType.ALL)
     private List<Comment> comments;
 
+    @OneToMany(mappedBy = "user_id", cascade = CascadeType.ALL)
+    private List<AnswerComment> answerComments;
+
     public User() {}
 
-    public User(String name, String username, String password, String email) {
+    public User(Long id,String name, String username, String password, String email) {
+        this.id = id;
         this.name = name;
         this.username = username;
         this.password = password;
@@ -34,6 +38,14 @@ public class User {
 
     public void setComments(List<Comment> comments) {
         this.comments = comments;
+    }
+
+    public List<AnswerComment> getAnswerComments() {
+        return answerComments;
+    }
+
+    public void setAnswerComments(List<AnswerComment> answerComments) {
+        this.answerComments = answerComments;
     }
 
     public String getEmail() {

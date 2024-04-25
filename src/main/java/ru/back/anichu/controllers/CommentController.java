@@ -7,6 +7,7 @@ import ru.back.anichu.repositories.CommentRepository;
 
 import java.util.List;
 
+@RestController
 public class CommentController {
 
     @Autowired

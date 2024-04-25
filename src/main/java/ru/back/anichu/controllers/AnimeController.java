@@ -1,6 +1,5 @@
 package ru.back.anichu.controllers;
 
-import org.aspectj.lang.annotation.RequiredTypes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.back.anichu.models.Anime;

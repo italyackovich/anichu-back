@@ -2,6 +2,8 @@ package ru.back.anichu.models;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "comments")
 public class Comment {
@@ -11,8 +13,11 @@ public class Comment {
     private Long id;
     private String body;
     private String date;
-    private Long user_id;
     private Long anime_id;
+    private Long user_id;
+
+    @OneToMany(mappedBy = "comment_id", cascade = CascadeType.ALL)
+    private List<AnswerComment> answerComments;
 
     public Comment() {}
 
@@ -24,12 +29,20 @@ public class Comment {
         this.anime_id = anime_id;
     }
 
+    public void setAnswerComments(List<AnswerComment> answerComments) {
+        this.answerComments = answerComments;
+    }
+
     public Long getAnime_id() {
         return anime_id;
     }
 
     public void setAnime_id(Long anime_id) {
         this.anime_id = anime_id;
+    }
+
+    public List<AnswerComment> getAnswerComments() {
+        return answerComments;
     }
 
     public Long getUser_id() {
