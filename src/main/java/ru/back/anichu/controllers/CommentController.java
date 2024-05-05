@@ -8,6 +8,7 @@ import ru.back.anichu.repositories.CommentRepository;
 import java.util.List;
 
 @RestController
+@CrossOrigin("http://localhost:3000")
 public class CommentController {
 
     @Autowired
@@ -33,11 +34,22 @@ public class CommentController {
         return commentRepository.findById(com_id)
                 .map(comment -> {
                     comment.setBody(newComment.getBody());
+                    comment.setDate(newComment.getDate());
+                    comment.setUser_id(newComment.getUser_id());
+                    comment.setAnime_id(newComment.getAnime_id());
                     return commentRepository.save(comment);}).orElse(null);
     }
 
     @DeleteMapping("/anime/{id}/comments/{com_id}")
     public void deleteComment(@PathVariable Long com_id) {
         commentRepository.deleteById(com_id);
+    }
+
+    @PatchMapping("/anime/{id}/comments/{com_id}")
+    public Comment patchComment(@PathVariable Long com_id, @RequestBody Comment newComment) {
+        return commentRepository.findById(com_id)
+                .map(comment -> {
+                    comment.setBody(newComment.getBody());
+                    return commentRepository.save(comment);}).orElse(null);
     }
 }

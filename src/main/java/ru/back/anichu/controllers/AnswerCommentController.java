@@ -8,6 +8,7 @@ import ru.back.anichu.repositories.AnswerCommentRepository;
 import java.util.List;
 
 @RestController
+@CrossOrigin("http://localhost:3000")
 public class AnswerCommentController {
 
     @Autowired
@@ -34,6 +35,14 @@ public class AnswerCommentController {
         return answerCommentRepository.findById(ans_id)
                 .map(answerComment -> {
                     answerComment.setBody(newAnswer.getBody());
+                    return answerCommentRepository.save(answerComment);}).orElse(null);
+    }
+
+    @PatchMapping("/anime/{id}/comments/{comm_id}/answers/{ans_id}")
+    public AnswerComment updateCommentsAnswer(@PathVariable Long ans_id, @RequestBody AnswerComment newAnswer) {
+        return answerCommentRepository.findById(ans_id)
+                .map(answerComment -> {
+                    answerComment.setComments(newAnswer.getComments());
                     return answerCommentRepository.save(answerComment);}).orElse(null);
     }
 

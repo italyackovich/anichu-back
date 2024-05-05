@@ -1,6 +1,11 @@
 package ru.back.anichu.models;
 
+import io.hypersistence.utils.hibernate.type.json.JsonType;
 import jakarta.persistence.*;
+import org.hibernate.annotations.Type;
+
+import java.util.List;
+
 
 @Entity
 public class AnswerComment {
@@ -13,14 +18,27 @@ public class AnswerComment {
     private Long comment_id;
     private Long user_id;
 
+    @Type(JsonType.class)
+    @Column(columnDefinition = "jsonb")
+    private List<Comment> comments;
+
     public AnswerComment() {}
 
-    public AnswerComment(Long id, Long user_id, String body, String date, Long comment_id, User user) {
+    public AnswerComment(Long id, Long user_id, String body, String date, Long comment_id, List<Comment> comments) {
         this.id = id;
         this.body = body;
         this.date = date;
         this.comment_id = comment_id;
         this.user_id = user_id;
+        this.comments = comments;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 
     public Long getId() {
