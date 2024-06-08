@@ -35,14 +35,17 @@ public class AnswerCommentController {
         return answerCommentRepository.findById(ans_id)
                 .map(answerComment -> {
                     answerComment.setBody(newAnswer.getBody());
+                    answerComment.setDate(newAnswer.getDate());
+                    answerComment.setUser_id(newAnswer.getUser_id());
+                    answerComment.setComment_id(newAnswer.getComment_id());
                     return answerCommentRepository.save(answerComment);}).orElse(null);
     }
 
     @PatchMapping("/anime/{id}/comments/{comm_id}/answers/{ans_id}")
-    public AnswerComment updateCommentsAnswer(@PathVariable Long ans_id, @RequestBody AnswerComment newAnswer) {
+    public AnswerComment patchAnswer(@PathVariable Long ans_id, @RequestBody AnswerComment newAnswer) {
         return answerCommentRepository.findById(ans_id)
                 .map(answerComment -> {
-                    answerComment.setComments(newAnswer.getComments());
+                    answerComment.setBody(newAnswer.getBody());
                     return answerCommentRepository.save(answerComment);}).orElse(null);
     }
 

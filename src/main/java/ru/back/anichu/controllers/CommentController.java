@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.back.anichu.models.Comment;
 import ru.back.anichu.repositories.CommentRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -15,8 +16,11 @@ public class CommentController {
     private CommentRepository commentRepository;
 
     @GetMapping("/anime/{id}/comments")
-    public List<Comment> getCommentsByAnimeId() {
-        return commentRepository.findAll();
+    public List<Comment> getCommentsByAnimeId(@PathVariable Long id) {
+        return commentRepository.findAll()
+                .stream()
+                .filter(comment -> comment.getAnime_id() == id)
+                .toList();
     }
 
     @GetMapping("/anime/{id}/comments/{com_id}")
@@ -40,16 +44,17 @@ public class CommentController {
                     return commentRepository.save(comment);}).orElse(null);
     }
 
-    @DeleteMapping("/anime/{id}/comments/{com_id}")
-    public void deleteComment(@PathVariable Long com_id) {
-        commentRepository.deleteById(com_id);
-    }
-
-    @PatchMapping("/anime/{id}/comments/{com_id}")
+    @PatchMapping("anime/{id}/comments/{com_id}")
     public Comment patchComment(@PathVariable Long com_id, @RequestBody Comment newComment) {
         return commentRepository.findById(com_id)
                 .map(comment -> {
                     comment.setBody(newComment.getBody());
                     return commentRepository.save(comment);}).orElse(null);
     }
+
+    @DeleteMapping("/anime/{id}/comments/{com_id}")
+    public void deleteComment(@PathVariable Long com_id) {
+        commentRepository.deleteById(com_id);
+    }
+
 }

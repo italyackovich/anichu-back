@@ -27,14 +27,26 @@ public class UserController {
 
     @PutMapping("/users/{id}")
     User updateUser(@PathVariable Long id, @RequestBody User newUser) {
-        return userRepository.findById(id)
-                .map(user -> {
-                    user.setName(newUser.getName());
-                    user.setEmail(newUser.getEmail());
-                    user.setUsername(newUser.getUsername());
-                    user.setPassword(newUser.getPassword());
-                    return userRepository.save(user);
-                }).orElse(null);
+        return userRepository.findById(id).map(user -> {
+            user.setName(newUser.getName());
+            user.setEmail(newUser.getEmail());
+            user.setUsername(newUser.getUsername());
+            user.setPassword(newUser.getPassword());
+            user.setWillWatchAnimeList(newUser.getWillWatchAnimeList());
+            user.setWatchAnimeList(newUser.getWatchAnimeList());
+            user.setWatchedAnimeList(newUser.getWatchedAnimeList());
+            return userRepository.save(user);
+        }).orElse(null);
+    }
+
+    @PatchMapping("/users/{id}")
+    User patchUser(@PathVariable Long id, @RequestBody User newUser) {
+        return userRepository.findById(id).map(user -> {
+            user.setWillWatchAnimeList(newUser.getWillWatchAnimeList());
+            user.setWatchAnimeList(newUser.getWatchAnimeList());
+            user.setWatchedAnimeList(newUser.getWatchedAnimeList());
+            return userRepository.save(user);
+        }).orElse(null);
     }
 
     @PostMapping("/users")

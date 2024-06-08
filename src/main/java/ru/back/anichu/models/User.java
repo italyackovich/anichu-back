@@ -1,5 +1,7 @@
 package ru.back.anichu.models;
+import io.hypersistence.utils.hibernate.type.json.JsonType;
 import jakarta.persistence.*;
+import org.hibernate.annotations.Type;
 
 import java.util.List;
 
@@ -15,6 +17,22 @@ public class User {
     private String email;
     private String password;
 
+    @Type(JsonType.class)
+    @Column(columnDefinition = "jsonb")
+    private List<Anime> watchedAnimeList;
+
+    @Type(JsonType.class)
+    @Column(columnDefinition = "jsonb")
+    private List<Anime> watchAnimeList;
+
+    @Type(JsonType.class)
+    @Column(columnDefinition = "jsonb")
+    private List<Anime> willWatchAnimeList;
+
+//    @Type(JsonType.class)
+//    @Column(columnDefinition = "jsonb")
+//    private String notifications;
+
     @OneToMany(mappedBy = "user_id", cascade = CascadeType.ALL)
     private List<Comment> comments;
 
@@ -23,12 +41,39 @@ public class User {
 
     public User() {}
 
-    public User(Long id,String name, String username, String password, String email) {
+    public User(Long id,String name, String username, String password, String email, List<Anime> watchedAnimeList, List<Anime> watchAnimeList, List<Anime> willWatchAnimeList) {
         this.id = id;
         this.name = name;
         this.username = username;
         this.password = password;
         this.email = email;
+        this.watchedAnimeList = watchedAnimeList;
+        this.watchAnimeList = watchAnimeList;
+        this.willWatchAnimeList = willWatchAnimeList;
+    }
+
+    public List<Anime> getWatchedAnimeList() {
+        return watchedAnimeList;
+    }
+
+    public void setWatchedAnimeList(List<Anime> watchedAnimeList) {
+        this.watchedAnimeList = watchedAnimeList;
+    }
+
+    public List<Anime> getWatchAnimeList() {
+        return watchAnimeList;
+    }
+
+    public void setWatchAnimeList(List<Anime> watchAnimeList) {
+        this.watchAnimeList = watchAnimeList;
+    }
+
+    public List<Anime> getWillWatchAnimeList() {
+        return willWatchAnimeList;
+    }
+
+    public void setWillWatchAnimeList(List<Anime> willWatchAnimeList) {
+        this.willWatchAnimeList = willWatchAnimeList;
     }
 
     public List<Comment> getComments() {

@@ -46,6 +46,15 @@ public class AnimeController {
                 }).orElse(null);
     }
 
+    @PatchMapping("/anime/{id}")
+    Anime patchAnime(@PathVariable Long id, @RequestBody Double rating){
+        return aniRepository.findById(id)
+                .map(anime -> {
+                    anime.setRating(rating);
+                    return aniRepository.save(anime);
+                }).orElse(null);
+    }
+
     @DeleteMapping("/anime/{id}")
     void deleteAnime(@PathVariable Long id) {
         aniRepository.deleteById(id);

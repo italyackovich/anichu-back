@@ -1,7 +1,9 @@
 package ru.back.anichu.models;
 
+import io.hypersistence.utils.hibernate.type.json.JsonType;
 import jakarta.persistence.*;
-import java.time.LocalDate;
+import org.hibernate.annotations.Type;
+
 import java.util.List;
 
 @Entity

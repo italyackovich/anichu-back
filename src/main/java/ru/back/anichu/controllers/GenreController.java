@@ -8,6 +8,7 @@ import ru.back.anichu.repositories.GenreRepository;
 import java.util.List;
 
 @RestController
+@CrossOrigin("http://localhost:3000")
 public class GenreController {
 
     @Autowired
@@ -18,7 +19,7 @@ public class GenreController {
         return genreRepository.save(newGenre);
     }
 
-    @GetMapping("/anime/{id}/genres")
+    @GetMapping("/anime/genres")
     List<Genre> getAllGenres() {
         return genreRepository.findAll();
     }
